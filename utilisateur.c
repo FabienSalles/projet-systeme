@@ -3,7 +3,7 @@
 void inscription(){
 	char saisie[128];
 	Utilisateur user;
-	int fd;
+	FILE * fic;
 
 	// Saisie du login et mot de passe
 	printf("############################\n");
@@ -24,12 +24,11 @@ void inscription(){
 	
 
 	// enregistrement dans le fichier
-	if ((fd = open(fileUser, O_WRONLY)) < 0) {
+	if ((fic = fopen(fileUser, "a" )) < 0) {
 		fprintf(stderr, "Erreur : %s ne peut être ouvert\n",fileUser);
 		exit(EXIT_FAILURE);
 	}
-	printf("nom : %s",user.nom);
-	printf("prenom : %s",user.password);
+	fprintf(fic, "%s %s\n", user.nom,user.password);
 	printf("\n");
 }
 
@@ -49,8 +48,8 @@ void auth(){
 	fic=fopen("./users.txt","w");
 	
 	if (fic==NULL) {
-	printf("fichier inexistant\n");
-	return 0;
+		printf("fichier inexistant\n");
+		exit(0);
 	}
 	
 	while(fscanf(fic,"%s",login)!=EOF){
