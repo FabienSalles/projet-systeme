@@ -34,5 +34,37 @@ void inscription(){
 }
 
 void auth(){
-	printf("2 : S'authentifier\n");
+
+	char nom[100],login[100];
+	char pwd[100],mdp[100];
+	
+	printf("############################\n");
+	printf("####  authentification  ####\n");
+	printf("Nom : ");
+	scanf("%s", nom);
+	printf("Mot de passe : ");
+	scanf("%s", mdp);
+	
+	FILE *fic;
+	fic=fopen("./users.txt","w");
+	
+	if (fic==NULL) {
+	printf("fichier inexistant\n");
+	return 0;
+	}
+	
+	while(fscanf(fic,"%s",login)!=EOF){
+		if(strcasecmp(login, nom) == 0){
+			fscanf(fic,"%s",pwd);
+			if(strcasecmp(pwd, mdp) == 0){
+				//login et mdp OK!
+				printf("vous etes maintenant connecte!");
+			}
+			else// !mdp
+				printf("Le mot de passe ou/et login est incorecte!");
+		}
+		else// !login
+			printf("Le mot de passe ou/et login est incorecte!");
+	}
+
 }
