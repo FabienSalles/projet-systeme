@@ -2,16 +2,16 @@
 #include "utilisateur.c"
 
 
-int main(){
+int main(int argc, char * argv[]){
 	
 	menu();
-	
+	//inscription();
 	return  0;
 	
 }
 
 void menu(){
-	char choix[2];
+	char choix;
 	
 	printf("############################\n");
 	printf("####       Accueil      ####\n");
@@ -20,10 +20,9 @@ void menu(){
 	printf("3 : Quitter\n");
 	printf("############################\n");
 	printf("Choix : ");
-	if (fgets(choix, 2, stdin) == NULL)
-		exit(EXIT_FAILURE);
-
-	switch(choix[0]){
+	scanf("%c", &choix);
+	printf("\n\n");
+	switch(choix){
 		case '1':
 			inscription();
 			break;

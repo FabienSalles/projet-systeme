@@ -1,6 +1,6 @@
 typedef struct utilisateur{
-	char* nom;
-	char* mdp;
+	char nom[128];
+	char password[128];
 } Utilisateur;
 
 void inscription();
