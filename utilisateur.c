@@ -32,10 +32,65 @@ void inscription(){
 	printf("\n");
 }
 
+int loginExiste(char nom[100]){
+	//retour 1 si le login existe sinon 0
+	int trouve=0;
+	char login[100];
+	char pwd[100];
+	FILE *fic;
+	
+	fic=fopen(fileUser,"r");
+	if (fic==NULL) {
+		printf("fichier inexistant\n");
+		exit(0);
+	}
+	
+	while(fscanf(fic,"%s",login)!=EOF){
+		fscanf(fic,"%s",pwd);
+		if(strcasecmp(login, nom) == 0){
+			//login OK!
+			trouve=1;
+			break;
+		}
+	}
+	fclose(fic);
+	
+	return trouve;
+}
+
+int verifLogin(char nom[100], char mdp[100]){
+	//retour 1 si login et mdp ok sinon 0
+	int trouve=0;
+	char login[100];
+	char pwd[100];
+	FILE *fic;
+	
+	fic=fopen(fileUser,"r");
+	if (fic==NULL) {
+		printf("fichier inexistant\n");
+		exit(0);
+	}
+	
+	while(fscanf(fic,"%s",login)!=EOF){
+		fscanf(fic,"%s",pwd);
+		if(strcasecmp(login, nom) == 0){
+			if(strcasecmp(pwd, mdp) == 0){
+				//login et mdp OK!
+				trouve=1;
+				break;
+			}
+		}
+	}
+	fclose(fic);
+	
+	return trouve;
+}
+
 void auth(){
 
-	char nom[100],login[100];
-	char pwd[100],mdp[100];
+	char nom[100];
+	char mdp[100];
+	int choix=0;
 	
 	printf("############################\n");
 	printf("####  authentification  ####\n");
@@ -44,26 +99,32 @@ void auth(){
 	printf("Mot de passe : ");
 	scanf("%s", mdp);
 	
-	FILE *fic;
-	fic=fopen("./users.txt","w");
-	
-	if (fic==NULL) {
-		printf("fichier inexistant\n");
-		exit(0);
-	}
-	
-	while(fscanf(fic,"%s",login)!=EOF){
-		if(strcasecmp(login, nom) == 0){
-			fscanf(fic,"%s",pwd);
-			if(strcasecmp(pwd, mdp) == 0){
-				//login et mdp OK!
-				printf("vous etes maintenant connecte!");
+	if(verifLogin(nom ,mdp)==0){//vérification login et mdp
+		printf("Le mot de passe et/ou login est incorecte!\n\n");
+		
+		while(choix == 0){
+			printf("1 : Try again\n");
+			printf("2 : Retour Menu\n");
+			scanf("%d", &choix);
+			
+			switch(choix){
+				case 1:
+					auth();
+					break;
+				case 2:
+					fflush(stdin);
+					menu();
+					break;
+				default:
+					printf("\nUne erreur est survenue!\n");
+					printf("Veuillez refaire un choix\n");
+					printf("%d",choix);
+					choix=0;
 			}
-			else// !mdp
-				printf("Le mot de passe ou/et login est incorecte!");
 		}
-		else// !login
-			printf("Le mot de passe ou/et login est incorecte!");
 	}
-
+	else
+		printf("vous etes maintenant connecte!\n");
+		
 }
+

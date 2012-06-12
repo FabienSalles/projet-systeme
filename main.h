@@ -6,5 +6,6 @@
 
 void accueil();
 void menu();
+void menuconect();
 
 static char * fileUser = "users.txt";
