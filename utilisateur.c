@@ -2,6 +2,8 @@
 
 void inscription(){
 	char saisie[128];
+	char dirUser[256] = "";
+	strcat(dirUser, DIR_USERS);
 	Utilisateur user;
 	FILE * fic;
 
@@ -17,18 +19,22 @@ void inscription(){
 		scanf("%s", saisie);
 		if(strcasecmp(user.password, saisie)==0)
 			break;
-		else
+		else {
 		 	printf("Les mots de passes sont différent!\n");
 			printf("Veuillez les resaisir!\n");
+		}
 	}
 	
 
 	// enregistrement dans le fichier
-	if ((fic = fopen(fileUser, "a" )) < 0) {
-		fprintf(stderr, "Erreur : %s ne peut être ouvert\n",fileUser);
+	if ((fic = fopen(FILE_USERS, "a" )) < 0) {
+		fprintf(stderr, "Erreur : %s ne peut être ouvert\n",FILE_USERS);
 		exit(EXIT_FAILURE);
 	}
-	fprintf(fic, "%s %s\n", user.nom,user.password);
+	//fprintf(fic, "%s %s\n", user.nom,user.password);
+	strcat(dirUser, user.nom);
+	mkdir(dirUser, 0777);
+	printf("%s\n", dirUser);
 	printf("\n");
 }
 
