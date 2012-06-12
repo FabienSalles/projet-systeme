@@ -12,3 +12,4 @@ void menuconect();
 
 static char * FILE_USERS = "users.txt";
 static char * DIR_USERS = "users/";
+static char * DIR_HISTORIQUES = "historiques/";

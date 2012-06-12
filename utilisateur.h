@@ -5,3 +5,4 @@ typedef struct utilisateur{
 
 void inscription();
 void auth();
+int exist(char nom[100], char mdp[100]);
