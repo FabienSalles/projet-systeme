@@ -36,7 +36,7 @@ void menu(){
 			printf("Veuillez refaire un choix\n");
 			menu();
 	}
-	menuconect();
+	//menuconect();
 }
 
 void menuconect(){

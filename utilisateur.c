@@ -31,7 +31,7 @@ void inscription(){
 		fprintf(stderr, "Erreur : %s ne peut être ouvert\n",FILE_USERS);
 		exit(EXIT_FAILURE);
 	}
-	//fprintf(fic, "%s %s\n", user.nom,user.password);
+	fprintf(fic, "%s %s\n", user.nom,user.password);
 	strcat(dirUser, user.nom);
 	mkdir(dirUser, 0777);
 	printf("%s\n", dirUser);
@@ -45,7 +45,7 @@ int loginExiste(char nom[100]){
 	char pwd[100];
 	FILE *fic;
 	
-	fic=fopen(fileUser,"r");
+	fic=fopen(FILE_USERS,"r");
 	if (fic==NULL) {
 		printf("fichier inexistant\n");
 		exit(0);
@@ -71,7 +71,7 @@ int verifLogin(char nom[100], char mdp[100]){
 	char pwd[100];
 	FILE *fic;
 	
-	fic=fopen(fileUser,"r");
+	fic=fopen(FILE_USERS,"r");
 	if (fic==NULL) {
 		printf("fichier inexistant\n");
 		exit(0);
