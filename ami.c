@@ -6,23 +6,32 @@ void ajouterAmi(char * user){
 
 	printf("############################\n");
 	printf("####   Ajouter un ami   ####\n");
+	printf("############################\n");
 	printf("Nom : ");
 	scanf("%s",nom);
+	printf("\n");
 
 	if(userExist(nom, NULL)){
 		
-		// ajout de l'ami dans le fichier ami de l'utilisateur	
-		strcat(fileAmi, DIR_USERS);
-		strcat(fileAmi, user);
-		strcat(fileAmi, "/amis.txt");
-		fic = fopen(fileAmi, "a");
+		if(amiExist(user, nom)){
+			errorAjoutAmi(user);
+		}
+		else {
+			// ajout de l'ami dans le fichier ami de l'utilisateur	
+			strcat(fileAmi, DIR_USERS);
+			strcat(fileAmi, user);
+			strcat(fileAmi, "/amis.txt");
+			fic = fopen(fileAmi, "a");
 
-		fprintf(fic, "%s\n", nom);
-		fclose(fic);
+			fprintf(fic, "%s\n", nom);
+			fclose(fic);
+			menuconnect(user);
+		}
 	}
 	else {
 		printf("\nLe nom de votre ami n'existe pas!\n");
 		printf("Veuillez resaisir le nom d'utilisateur!\n\n");
+		ajouterAmi(user);
 	}
 }
 
@@ -32,10 +41,12 @@ void supprAmi(char* user){
 	
 	printf("############################\n");
 	printf("####  Supprimer un ami  ####\n");
+	printf("############################\n");
 	printf("Nom : ");
 	scanf("%s", nom);
+	printf("\n");
 	if(amiExist(user,nom)==0){
-		errorAmiExist(user);
+		errorSupprAmi(user);
 	}
 	else{
 	
@@ -81,50 +92,72 @@ void supprAmi(char* user){
 }
 
 int amiExist(char* user,char nom[128]){
-	char dirUser[256] = "";
 	char fileAmi[256] = "";
-	char ami[128]= "";
-	int trouve=0;
+	char ami[128];
+
+	int trouve = 0;
 	FILE * fic;
 	
-	strcat(dirUser, DIR_USERS);
-	strcat(dirUser, user);
-	strcat(fileAmi, dirUser);
+	strcat(fileAmi, DIR_USERS);
+	strcat(fileAmi, user);
 	strcat(fileAmi, "/amis.txt");
 	
 	fic=fopen(fileAmi,"r");
-	if (fic==NULL) {
-		printf("fichier inexistant\n");
-		exit(0);
-	}
-	
+
 	while(fscanf(fic,"%s",ami)!=EOF){
 		if(strcasecmp(nom, ami) == 0)
-			trouve=1;
+			trouve = 1;
 	}
+
 	fclose(fic);
 	return trouve;
 }
 
-void errorAmiExist(char* user){
+void errorAjoutAmi(char* user){
 	int choix=0;
 	
-		printf("L'ami(e) saisie n'existe pas!\n\n");
-		printf("1 : Try again\n");
-		printf("2 : Retour Menu\n");
-		scanf("%d", &choix);
+	printf("\nL'ami existe déjà!\n\n");
+	printf("1 : Try again\n");
+	printf("2 : Retour Menu\n\n");
+
+	printf("Choix : ");
+	scanf("%d", &choix);
 		
-		switch(choix){
-			case 1:
-				supprAmi(user);
-				break;
-			case 2:
-				menuconect(user);
-				break;
-			default:
-				printf("\nUne erreur est survenue!\n");
-				printf("Veuillez refaire un choix\n");
-				errorAmiExist(user);
-		}
+	switch(choix){
+		case 1:
+			ajouterAmi(user);
+			break;
+		case 2:
+			menuconnect(user);
+			break;
+		default:
+			printf("\nUne erreur est survenue!\n");
+			printf("Veuillez refaire un choix\n");
+			errorAjoutAmi(user);
+	}
+}
+
+void errorSupprAmi(char* user){
+	int choix=0;
+	
+	printf("L'ami(e) saisie n'existe pas!\n\n");
+	printf("1 : Try again\n");
+	printf("2 : Retour Menu\n\n");
+
+	printf("Choix : ");
+	scanf("%d", &choix);
+		
+	switch(choix){
+		case 1:
+			supprAmi(user);
+			break;
+		case 2:
+			menuconnect(user);
+			break;
+		default:
+			printf("\nUne erreur est survenue!\n");
+			printf("Veuillez refaire un choix\n");
+			errorSupprAmi(user);
+	}
 }
 

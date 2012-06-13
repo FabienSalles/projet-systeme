@@ -12,6 +12,7 @@ Utilisateur inscription(){
 	// Saisie du login et mot de passe
 	printf("############################\n");
 	printf("####     S'inscrire     ####\n");
+	printf("############################\n");
 	printf("Nom : ");
 	scanf("%s", user.nom);
 	while(1){
@@ -88,6 +89,7 @@ Utilisateur auth(){
 	
 	printf("############################\n");
 	printf("####  authentification  ####\n");
+	printf("############################\n");
 	printf("Nom : ");
 	scanf("%s", user.nom);
 	printf("Mot de passe : ");
@@ -154,7 +156,7 @@ void errorUserExist(){
 		default:
 			printf("\nUne erreur est survenue!\n");
 			printf("Veuillez refaire un choix\n");
-			errorExist();
+			errorUserExist();
 
 	}
 }

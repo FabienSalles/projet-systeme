@@ -8,26 +8,27 @@ int main(int argc, char * argv[]){
 }
 
 void menu(){
-	char choix;
+	int choix;
 	Utilisateur user;
 	printf("############################\n");
 	printf("####       Accueil      ####\n");
+	printf("############################\n");
 	printf("1 : S'inscrire\n");
 	printf("2 : S'authentifier\n");
 	printf("3 : Quitter\n");
 	printf("############################\n");
 	printf("Choix : ");
-	scanf("%c", &choix);
+	scanf("%d", &choix);
 	
 	printf("\n\n");
 	switch(choix){
-		case '1':
+		case 1:
 			user = inscription();
 			break;
-		case '2':
+		case 2:
 			user = auth();
 			break;
-		case '3':
+		case 3:
 			exit(EXIT_SUCCESS);
 		default:
 			printf("\nUne erreur est survenue!\n");
@@ -42,7 +43,8 @@ void menuconnect(char * user){
 	int choix;
 
 	printf("############################\n");
-	printf("####       Accueil      ####\n");
+	printf("####        Menu        ####\n");
+	printf("############################\n");
 	printf("1 : Afficher mur\n");
 	printf("2 : Envoyer un message\n");
 	printf("3 : Boite de reception\n");
@@ -60,13 +62,13 @@ void menuconnect(char * user){
 	switch(choix){
 
 		case 1:
-			menuconect(user);
+			menuconnect(user);
 			break;
 		case 2:
-			menuconect(user);
+			menuconnect(user);
 			break;
 		case 3:
-			menuconect(user);
+			menuconnect(user);
 			break;
 		case 4:
 			ajouterAmi(user);
@@ -75,13 +77,13 @@ void menuconnect(char * user){
 			supprAmi(user);
 			break;
 		case 6:
-			menuconect(user);
+			menuconnect(user);
 			break;
 		case 7:
-			menuconect(user);
+			menuconnect(user);
 			break;
 		case 8:
-			menuconect(user);
+			menuconnect(user);
 			break;
 		case 9:
 			menu();
