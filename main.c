@@ -34,10 +34,10 @@ void menu(){
 			printf("Veuillez refaire un choix\n");
 			menu();
 	}
-	menuconect(user);
+	menuconect(user.nom);
 }
 
-void menuconect(Utilisateur user){
+void menuconect(char * user){
 	
 	int choix;
 
@@ -62,7 +62,7 @@ void menuconect(Utilisateur user){
 		//	inscription();
 		//	break;
 		case 4:
-			supprAmi(user);
+			ajouterAmi(user);
 		case 9:
 			menu();
 			break;

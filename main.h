@@ -10,7 +10,7 @@
 #include "ami.h"
 
 void menu();
-void menuconect(Utilisateur user);
+void menuconect(char * user);
 
 static char * FILE_USERS = "users.txt";
 static char * DIR_USERS = "users/";

@@ -33,41 +33,53 @@ Utilisateur inscription(){
 		fprintf(stderr, "Erreur : %s ne peut être ouvert\n",FILE_USERS);
 		exit(EXIT_FAILURE);
 	}
-	fprintf(fic, "%s %s\n", user.nom,user.password);
-	fclose(fic);
 
-	// créaction du dossier utilisateur
-	strcat(dirUser, DIR_USERS);
-	strcat(dirUser, user.nom);
-	mkdir(dirUser, 0777);
+	if(exist(user.nom, NULL)){
+		printf("\nLe nom d'utilisateur exsite déjà!\n");
+		printf("Veuillez resaisir les données!\n\n");
+		
+		return inscription();
+	}
+	else {
 
-	// création du fichier gérant l'historique de l'utilisateur
-	strcat(fileHistorique, DIR_HISTORIQUES);
-	strcat(fileHistorique, user.nom);
-	strcat(fileHistorique, ".txt");
-	fic = fopen(fileHistorique, "w");
-	fclose(fic);
+		fprintf(fic, "%s %s\n", user.nom,user.password);
+		fclose(fic);
 
-	// création du fichier gérant les amis de l'utilisateur
-	strcat(fileAmi, dirUser);
-	strcat(fileAmi, "/amis.txt");
-	fic = fopen(fileAmi, "w");
-	fclose(fic);
+		// créaction du dossier utilisateur
+		strcat(dirUser, DIR_USERS);
+		strcat(dirUser, user.nom);
+		mkdir(dirUser, 0777);
 
-	// création des fichiers gérant les messages de l'utilisateur
-	strcat(fileMsgEnvoye, dirUser);
-	strcat(fileMsgEnvoye, "/envoyes.txt");
-	fic = fopen(fileMsgEnvoye, "w");
-	fclose(fic);
+		// création du fichier gérant l'historique de l'utilisateur
+		strcat(fileHistorique, DIR_HISTORIQUES);
+		strcat(fileHistorique, user.nom);
+		strcat(fileHistorique, ".txt");
+		fic = fopen(fileHistorique, "w");
+		fclose(fic);
 
-	strcat(fileMsgRecu, dirUser);
-	strcat(fileMsgRecu, "/recus.txt");
-	fic = fopen(fileMsgRecu, "w");
-	fclose(fic);
+		// création du fichier gérant les amis de l'utilisateur
+		strcat(fileAmi, dirUser);
+		strcat(fileAmi, "/amis.txt");
+		fic = fopen(fileAmi, "w");
+		fclose(fic);
 
-	printf("\n\n");
+		// création des fichiers gérant les messages de l'utilisateur
+		strcat(fileMsgEnvoye, dirUser);
+		strcat(fileMsgEnvoye, "/envoyes.txt");
+		fic = fopen(fileMsgEnvoye, "w");
+		fclose(fic);
 
-	return user;
+		strcat(fileMsgRecu, dirUser);
+		strcat(fileMsgRecu, "/recus.txt");
+		fic = fopen(fileMsgRecu, "w");
+		fclose(fic);
+
+		printf("\n");
+		printf("vous etes maintenant connecte!\n");
+		printf("\n");
+		
+		return user;
+	}
 }
 
 Utilisateur auth(){
@@ -83,7 +95,7 @@ Utilisateur auth(){
 
 	printf("\n");	
 	//vérification login et mdp
-	if(!exist(user)) 
+	if(!exist(user.nom, user.password)) 
 		errorExist();
 	else
 		printf("vous etes maintenant connecte!\n");
@@ -92,7 +104,7 @@ Utilisateur auth(){
 	return user;	
 }
 
-int exist(Utilisateur user){
+int exist(char * nom, char * password){
 	//retour 1 si login et mdp ok sinon 0
 	int trouve=0;
 	Utilisateur temp;
@@ -105,9 +117,9 @@ int exist(Utilisateur user){
 	}
 	
 	while(fscanf(fic,"%s %s",temp.nom, temp.password)!=EOF){
-		if(strcasecmp(temp.nom, user.nom) == 0){
-			if(user.password){
-				if(strcasecmp(temp.password, user.password) == 0){
+		if(strcasecmp(temp.nom, nom) == 0){
+			if(password){
+				if(strcasecmp(temp.password, password) == 0){
 					//login et mdp OK!
 					trouve=1;
 					break;

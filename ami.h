@@ -1,1 +1,2 @@
-void supprAmi(Utilisateur user);
+void ajouterAmi(char * user);
+void supprAmi(char * user);
