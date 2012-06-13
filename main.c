@@ -1,4 +1,6 @@
+#ifndef main_h
 #include "main.h"
+#endif
 
 int main(int argc, char * argv[]){
 	
@@ -77,7 +79,7 @@ void menuconnect(char * user){
 			supprAmi(user);
 			break;
 		case 6:
-			menuconnect(user);
+			test();
 			break;
 		case 7:
 			menuconnect(user);

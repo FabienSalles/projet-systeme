@@ -1,3 +1,7 @@
+#ifndef utilisateur_h
+#include "utilisateur.h"
+#endif
+
 Utilisateur inscription(){
 	char saisie[128],
 	     dirUser[256] = "",

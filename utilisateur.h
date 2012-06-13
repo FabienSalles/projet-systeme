@@ -1,3 +1,5 @@
+#define utilisateur_h
+
 typedef struct utilisateur{
 	char nom[128];
 	char password[128];

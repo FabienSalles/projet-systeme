@@ -1,3 +1,7 @@
+#ifndef ami_h
+#include "ami.h"
+#endif
+
 void ajouterAmi(char * user){
 	FILE * fic;
 
