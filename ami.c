@@ -9,16 +9,21 @@ void ajouterAmi(char * user){
 	printf("Nom : ");
 	scanf("%s",nom);
 
-	// ajout de l'ami dans le fichier ami de l'utilisateur	
-	strcat(fileAmi, DIR_USERS);
-	strcat(fileAmi, user);
-	strcat(fileAmi, "/amis.txt");
-	fic = fopen(fileAmi, "a");
+	if(userExist(nom, NULL)){
+		
+		// ajout de l'ami dans le fichier ami de l'utilisateur	
+		strcat(fileAmi, DIR_USERS);
+		strcat(fileAmi, user);
+		strcat(fileAmi, "/amis.txt");
+		fic = fopen(fileAmi, "a");
 
-	fprintf(fic, "%s\n", nom);
-	fclose(fic);
-
-	sleep(1);
+		fprintf(fic, "%s\n", nom);
+		fclose(fic);
+	}
+	else {
+		printf("\nLe nom de votre ami n'existe pas!\n");
+		printf("Veuillez resaisir le nom d'utilisateur!\n\n");
+	}
 }
 
 void supprAmi(char * user){

@@ -5,5 +5,5 @@ typedef struct utilisateur{
 
 Utilisateur inscription();
 Utilisateur auth();
-int exist(char * nom, char * password);
-void errorExist();
+int userExist(char * nom, char * password);
+void errorUserExist();
