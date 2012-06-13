@@ -58,11 +58,31 @@ void menuconect(char * user){
 	scanf("%d", &choix);
 	printf("\n\n");
 	switch(choix){
-		//case '1':
-		//	inscription();
-		//	break;
+
+		case 1:
+			menuconect(user);
+			break;
+		case 2:
+			menuconect(user);
+			break;
+		case 3:
+			menuconect(user);
+			break;
 		case 4:
 			ajouterAmi(user);
+			break;
+		case 5:
+			supprAmi(user);
+			break;
+		case 6:
+			menuconect(user);
+			break;
+		case 7:
+			menuconect(user);
+			break;
+		case 8:
+			menuconect(user);
+			break;
 		case 9:
 			menu();
 			break;

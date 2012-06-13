@@ -154,7 +154,6 @@ void errorExist(){
 		default:
 			printf("\nUne erreur est survenue!\n");
 			printf("Veuillez refaire un choix\n");
-			printf("%d",choix);
 			errorExist();
 	}
 }
