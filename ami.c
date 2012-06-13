@@ -1,4 +1,3 @@
-
 void ajouterAmi(char * user){
 	FILE * fic;
 
