@@ -15,3 +15,11 @@ void getDate(time_t timestamp, char * date){
 	strftime(date, 11, "%d/%m/%Y",timeinfo);
 
 }
+
+void getHour(time_t timestamp, char * heure){
+	struct tm * timeinfo;
+
+	timeinfo = localtime(&timestamp);
+	strftime(heure, 11, "%H:%M:%S",timeinfo);
+
+}

@@ -12,5 +12,9 @@ void test(){
 
 	getDate(rowtime,date);
 
-	printf("date : %s",date);
+	printf("date : %s\n",date);
+
+	getHour(rowtime,date);
+
+	printf("heure : %s",date);
 }
