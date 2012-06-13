@@ -6,10 +6,15 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-void accueil();
+#include "utilisateur.h"
+#include "ami.h"
+
 void menu();
-void menuconect();
+void menuconect(Utilisateur user);
 
 static char * FILE_USERS = "users.txt";
 static char * DIR_USERS = "users/";
 static char * DIR_HISTORIQUES = "historiques/";
+
+#include "utilisateur.c"
+#include "ami.c"

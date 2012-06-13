@@ -3,6 +3,7 @@ typedef struct utilisateur{
 	char password[128];
 } Utilisateur;
 
-void inscription();
-void auth();
-int exist(char nom[100], char mdp[100]);
+Utilisateur inscription();
+Utilisateur auth();
+int exist(Utilisateur user);
+void errorExist();

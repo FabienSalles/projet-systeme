@@ -1,18 +1,15 @@
 #include "main.h"
-#include "utilisateur.c"
-
 
 int main(int argc, char * argv[]){
 	
 	menu();
-	//inscription();
 	return  0;
 	
 }
 
 void menu(){
 	char choix;
-	
+	Utilisateur user;
 	printf("############################\n");
 	printf("####       Accueil      ####\n");
 	printf("1 : S'inscrire\n");
@@ -21,13 +18,14 @@ void menu(){
 	printf("############################\n");
 	printf("Choix : ");
 	scanf("%c", &choix);
+	
 	printf("\n\n");
 	switch(choix){
 		case '1':
-			inscription();
+			user = inscription();
 			break;
 		case '2':
-			auth();
+			user = auth();
 			break;
 		case '3':
 			exit(EXIT_SUCCESS);
@@ -36,11 +34,13 @@ void menu(){
 			printf("Veuillez refaire un choix\n");
 			menu();
 	}
-	//menuconect();
+	menuconect(user);
 }
 
-void menuconect(){
-	char choix;
+void menuconect(Utilisateur user){
+	
+	int choix;
+
 	printf("############################\n");
 	printf("####       Accueil      ####\n");
 	printf("1 : Afficher mur\n");
@@ -55,20 +55,22 @@ void menuconect(){
 	printf("0 : Quitter\n");
 	printf("############################\n");
 	printf("Choix : ");
-	scanf("%c", &choix);
+	scanf("%d", &choix);
 	printf("\n\n");
 	switch(choix){
 		//case '1':
 		//	inscription();
 		//	break;
-		case '9':
+		case 4:
+			supprAmi(user);
+		case 9:
 			menu();
 			break;
-		case '0':
+		case 0:
 			exit(EXIT_SUCCESS);
 		default:
 			printf("\nUne erreur est survenue!\n");
 			printf("Veuillez refaire un choix\n");
-			menuconect();
+			menuconect(user);
 	}
 }

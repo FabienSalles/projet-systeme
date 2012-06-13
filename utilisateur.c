@@ -1,12 +1,10 @@
-#include "utilisateur.h"
-
-void inscription(){
-	char saisie[128];
-	char dirUser[256] = "";
-	char fileHistorique[256] ="";
-	char fileAmi[256] = "";
-	char fileMsgEnvoye[256] = "";
-	char fileMsgRecu[256] = "";
+Utilisateur inscription(){
+	char saisie[128],
+	     dirUser[256] = "",
+	     fileHistorique[256] ="",
+	     fileAmi[256] = "",
+	     fileMsgEnvoye[256] = "",
+	     fileMsgRecu[256] = "";
 
 	Utilisateur user;
 	FILE * fic;
@@ -66,59 +64,38 @@ void inscription(){
 	strcat(fileMsgRecu, "/recus.txt");
 	fic = fopen(fileMsgRecu, "w");
 	fclose(fic);
-	
 
-	printf("%s",fileMsgRecu);
-	printf("\n");
+	printf("\n\n");
+
+	return user;
 }
 
-void auth(){
+Utilisateur auth(){
 
-	char nom[100];
-	char mdp[100];
-	int choix=0;
+	Utilisateur user;
 	
 	printf("############################\n");
 	printf("####  authentification  ####\n");
 	printf("Nom : ");
-	scanf("%s", nom);
+	scanf("%s", user.nom);
 	printf("Mot de passe : ");
-	scanf("%s", mdp);
-	
-	if(exist(nom ,mdp)==0){//vérification login et mdp
-		printf("Le mot de passe et/ou login est incorecte!\n\n");
-		
-		while(choix == 0){
-			printf("1 : Try again\n");
-			printf("2 : Retour Menu\n");
-			scanf("%d", &choix);
-			
-			switch(choix){
-				case 1:
-					auth();
-					break;
-				case 2:
-					fflush(stdin);
-					menu();
-					break;
-				default:
-					printf("\nUne erreur est survenue!\n");
-					printf("Veuillez refaire un choix\n");
-					printf("%d",choix);
-					choix=0;
-			}
-		}
-	}
+	scanf("%s", user.password);
+
+	printf("\n");	
+	//vérification login et mdp
+	if(!exist(user)) 
+		errorExist();
 	else
 		printf("vous etes maintenant connecte!\n");
-		
+	printf("\n");
+
+	return user;	
 }
 
-int exist(char nom[100], char mdp[100]){
+int exist(Utilisateur user){
 	//retour 1 si login et mdp ok sinon 0
 	int trouve=0;
-	char login[100];
-	char pwd[100];
+	Utilisateur temp;
 	FILE *fic;
 	
 	fic=fopen(FILE_USERS,"r");
@@ -127,11 +104,10 @@ int exist(char nom[100], char mdp[100]){
 		exit(0);
 	}
 	
-	while(fscanf(fic,"%s",login)!=EOF){
-		fscanf(fic,"%s",pwd);
-		if(strcasecmp(login, nom) == 0){
-			if(mdp){
-				if(strcasecmp(pwd, mdp) == 0){
+	while(fscanf(fic,"%s %s",temp.nom, temp.password)!=EOF){
+		if(strcasecmp(temp.nom, user.nom) == 0){
+			if(user.password){
+				if(strcasecmp(temp.password, user.password) == 0){
 					//login et mdp OK!
 					trouve=1;
 					break;
@@ -148,3 +124,25 @@ int exist(char nom[100], char mdp[100]){
 	return trouve;
 }
 
+void errorExist(){
+	int choix=0;
+	
+	printf("Le mot de passe et/ou login est incorecte!\n\n");
+	printf("1 : Try again\n");
+	printf("2 : Retour Menu\n");
+	scanf("%d", &choix);
+			
+	switch(choix){
+		case 1:
+			auth();
+			break;
+		case 2:
+			menu();
+			break;
+		default:
+			printf("\nUne erreur est survenue!\n");
+			printf("Veuillez refaire un choix\n");
+			printf("%d",choix);
+			errorExist();
+	}
+}

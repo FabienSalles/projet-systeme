@@ -1,0 +1,3 @@
+void supprAmi(Utilisateur user){
+
+}

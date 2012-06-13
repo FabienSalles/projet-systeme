@@ -1,0 +1,1 @@
+void supprAmi(Utilisateur user);
