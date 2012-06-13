@@ -34,7 +34,7 @@ Utilisateur inscription(){
 		exit(EXIT_FAILURE);
 	}
 
-	if(exist(user.nom, NULL)){
+	if(userExist(user.nom, NULL)){
 		printf("\nLe nom d'utilisateur exsite déjà!\n");
 		printf("Veuillez resaisir les données!\n\n");
 		
@@ -95,8 +95,8 @@ Utilisateur auth(){
 
 	printf("\n");	
 	//vérification login et mdp
-	if(!exist(user.nom, user.password)) 
-		errorExist();
+	if(!userExist(user.nom, user.password)) 
+		errorUserExist();
 	else
 		printf("vous etes maintenant connecte!\n");
 	printf("\n");
@@ -104,7 +104,7 @@ Utilisateur auth(){
 	return user;	
 }
 
-int exist(char * nom, char * password){
+int userExist(char * nom, char * password){
 	//retour 1 si login et mdp ok sinon 0
 	int trouve=0;
 	Utilisateur temp;
@@ -136,7 +136,7 @@ int exist(char * nom, char * password){
 	return trouve;
 }
 
-void errorExist(){
+void errorUserExist(){
 	int choix=0;
 	
 	printf("Le mot de passe et/ou login est incorecte!\n\n");
@@ -155,5 +155,6 @@ void errorExist(){
 			printf("\nUne erreur est survenue!\n");
 			printf("Veuillez refaire un choix\n");
 			errorExist();
+
 	}
 }

@@ -34,10 +34,10 @@ void menu(){
 			printf("Veuillez refaire un choix\n");
 			menu();
 	}
-	menuconect(user.nom);
+	menuconnect(user.nom);
 }
 
-void menuconect(char * user){
+void menuconnect(char * user){
 	
 	int choix;
 
@@ -82,7 +82,6 @@ void menuconect(char * user){
 			break;
 		case 8:
 			menuconect(user);
-
 			break;
 		case 9:
 			menu();
@@ -92,6 +91,6 @@ void menuconect(char * user){
 		default:
 			printf("\nUne erreur est survenue!\n");
 			printf("Veuillez refaire un choix\n");
-			menuconect(user);
+			menuconnect(user);
 	}
 }

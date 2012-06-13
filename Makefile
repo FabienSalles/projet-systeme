@@ -4,12 +4,13 @@
 
 CFLAGS		= -Wall
 MAIN  		= main.c
+EXE		= exe
 HISTORIQUE_DIR	= historiques/
 USERS_DIR	= users/
 USERS_FILE	= users.txt
 
 exec:
-	gcc ${CFLAGS} ${MAIN}
+	gcc ${CFLAGS} ${MAIN} -o ${EXE}
 
 .PHONY: reset
 
