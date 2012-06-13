@@ -51,7 +51,7 @@ void supprAmi(char* user){
 	scanf("%s", nom);
 	printf("\n");
 	if(amiExist(user,nom)==0){
-		errorSupprAmi(user);
+		errorAmi(user,1);
 	}
 	else{
 		printf("Voulez vous vraiment supprime %s de vos amis? \n",nom);
@@ -100,8 +100,8 @@ void supprAmi(char* user){
 			}
 			fclose(ficTmp);
 			fclose(fic);
-			rename(fileAmiTmp,fileAmi);
 			printf("l'ami %s vient d'etre supprime\n",nom);
+			rename(fileAmiTmp,fileAmi);
 			menuconnect(user);
 		}
 	}
@@ -152,8 +152,11 @@ void errorAjoutAmi(char* user){
 			errorAjoutAmi(user);
 	}
 }
-
-void errorSupprAmi(char* user){
+/**
+ *si from=1=suppr ami
+ *si from=2=envoimessage
+ */
+void errorAmi(char* user,int from){
 	int choix=0;
 	
 	printf("L'ami(e) saisie n'existe pas!\n\n");
@@ -165,7 +168,14 @@ void errorSupprAmi(char* user){
 		
 	switch(choix){
 		case 1:
-			supprAmi(user);
+			switch(from){
+				case 1:
+					supprAmi(user);
+					break;
+				case 2:
+					envoyerMessage(user);
+					break;
+			}
 			break;
 		case 2:
 			menuconnect(user);
@@ -173,7 +183,7 @@ void errorSupprAmi(char* user){
 		default:
 			printf("\nUne erreur est survenue!\n");
 			printf("Veuillez refaire un choix\n");
-			errorSupprAmi(user);
+			errorAmi(user,from);
 	}
 }
 

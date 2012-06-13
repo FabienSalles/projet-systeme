@@ -8,11 +8,13 @@
 #include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
 
 #include "date.h"
 #include "utilisateur.h"
 #include "ami.h"
 #include "historique.h"
+#include "message.h"
 
 void menu();
 void menuconnect(char * user);
@@ -25,3 +27,4 @@ static char * DIR_HISTORIQUES = "historiques/";
 #include "utilisateur.c"
 #include "ami.c"
 #include "historique.c"
+#include "message.c"

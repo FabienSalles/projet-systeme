@@ -67,7 +67,7 @@ void menuconnect(char * user){
 			menuconnect(user);
 			break;
 		case 2:
-			menuconnect(user);
+			envoyerMessage(user);
 			break;
 		case 3:
 			menuconnect(user);
