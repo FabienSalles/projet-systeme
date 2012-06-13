@@ -38,6 +38,7 @@ void ajouterAmi(char * user){
 void supprAmi(char* user){
 	
 	char nom[128] = "";
+	int choix=0;
 	
 	printf("############################\n");
 	printf("####  Supprimer un ami  ####\n");
@@ -49,45 +50,56 @@ void supprAmi(char* user){
 		errorSupprAmi(user);
 	}
 	else{
-	
-		char dirUser[256] = "";
-		char fileAmi[256] = "";
-		char fileAmiTmp[256] = "";
-		char ami[128]= "";
-		FILE * fic;
-		FILE * ficTmp;
-		
-		strcat(dirUser, DIR_USERS);
-		strcat(dirUser, user);
-		strcat(fileAmi, dirUser);
-		strcat(fileAmi, "/amis.txt");
-		strcat(fileAmiTmp, dirUser);
-		
-		//creation du fichier temporaire
-		strcat(fileAmiTmp, "/amisTmp.txt");
-		ficTmp = fopen(fileAmiTmp, "w");
-		fclose(ficTmp);
-		
-		ficTmp = fopen(fileAmiTmp, "a");
-		if (ficTmp==NULL) {
-			printf("fichier inexistant\n");
-			exit(0);
+		printf("Voulez vous vraiment supprime %s de vos amis? \n",nom);
+		printf("1 : oui\n");
+		printf("2 : non\n");
+		scanf("%d", &choix);
+		if(choix==2){
+			menuconnect(user);
 		}
-		fic=fopen(fileAmi,"r");
-		if (fic==NULL) {
-			printf("fichier inexistant\n");
-			exit(0);
-		}
-		
-		while(fscanf(fic,"%s",ami)!=EOF){
-			if(!strcasecmp(nom, ami)){
-				fprintf(ficTmp, "%s\n", nom);
+		else{
+			char dirUser[256] = "";
+			char fileAmi[256] = "";
+			char fileAmiTmp[256] = "";
+			char ami[128]= "";
+			FILE * fic;
+			FILE * ficTmp;
+			
+			strcat(dirUser, DIR_USERS);
+			strcat(dirUser, user);
+			strcat(fileAmi, dirUser);
+			strcat(fileAmi, "/amis.txt");
+			strcat(fileAmiTmp, dirUser);
+			
+			//creation du fichier temporaire
+			strcat(fileAmiTmp, "/amisTmp.txt");
+			ficTmp = fopen(fileAmiTmp, "w");
+			fclose(ficTmp);
+			
+			ficTmp = fopen(fileAmiTmp, "a");
+			if (ficTmp==NULL) {
+				printf("fichier inexistant2\n");
+				exit(0);
 			}
+			fic=fopen(fileAmi,"r");
+			if (fic==NULL) {
+				printf("fichier inexistant3\n");
+				exit(0);
+			}
+			
+			while(fscanf(fic,"%s",ami)!=EOF){
+				if(strcasecmp(nom, ami) == 0){
+				//ne rien faire
+				}
+				else
+					fprintf(ficTmp, "%s\n", ami);
+			}
+			fclose(ficTmp);
+			fclose(fic);
+			rename(fileAmiTmp,fileAmi);
+			printf("l'ami %s vient d'etre supprime\n",nom);
+			menuconnect(user);
 		}
-		fclose(ficTmp);
-		fclose(fic);
-		rename(fileAmiTmp,fileAmi);
-	
 	}
 }
 
@@ -103,7 +115,7 @@ int amiExist(char* user,char nom[128]){
 	strcat(fileAmi, "/amis.txt");
 	
 	fic=fopen(fileAmi,"r");
-
+	
 	while(fscanf(fic,"%s",ami)!=EOF){
 		if(strcasecmp(nom, ami) == 0)
 			trouve = 1;
