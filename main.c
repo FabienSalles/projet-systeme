@@ -79,7 +79,7 @@ void menuconnect(char * user){
 			supprAmi(user);
 			break;
 		case 6:
-			test();
+			addAction(user,"création du compte");
 			break;
 		case 7:
 			menuconnect(user);
