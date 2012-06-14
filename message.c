@@ -177,7 +177,25 @@ void envoyerMessage(char* user){
 }
 
 int nbMsgEnvoyes(char * user){
-	return 0;
+	
+	char file[256] = "";
+	FILE * f;
+	Message msg;
+	int nb = 0;
+
+	strcat(file, DIR_USERS);
+	strcat(file, user);
+	strcat(file, FILE_ENVOYES);
+
+	f = fopen(file, "r");
+
+	while(fscanf(f,"%s %s %s %s",msg.id,msg.date,msg.hour, msg.dest)!=EOF){
+		nb++;						
+	}
+
+	fclose(f);
+
+	return nb;
 }
 
 /**
