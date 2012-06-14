@@ -15,14 +15,15 @@ typedef struct message{
 
 } Message;
 
-static char * FILE_ENVOYES 	= "/envoyes.txt";
-static char * FILE_RECUS	= "/recus.txt";
-static char * NL		= "NL";
-static char * LU		= "LU";
+#define FILE_ENVOYES "/envoyes.txt"
+#define FILE_RECUS   "/recus.txt"
+#define NL	     "NL"
+#define LU 	     "LU"
  	
 void envoyerMessage(char* user);
 int nbMsgEnvoyes(char * user);
 int nbMsgRecus(char * user, int choix);
 void boiteReception(char * user);
 void errorChoixMsg(char * user);
+void messageLu(char * user, char * id);
 

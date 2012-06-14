@@ -64,7 +64,7 @@ void menuconnect(char * user){
 	switch(choix){
 
 		case 1:
-			printf("Nombre de messages envoyés : %d\n",nbMsgEnvoyes(user));
+			menuconnect(user);
 			break;
 		case 2:
 			envoyerMessage(user);

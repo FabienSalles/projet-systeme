@@ -284,6 +284,7 @@ void boiteReception(char * user){
 		}
 		else{
 			wait(&status);
+			messageLu(file, msg[choix].id);
 			printf("\n\n");
 			menuconnect(user);
 		}
@@ -313,4 +314,22 @@ void errorChoixMsg(char * user){
 			errorChoixMsg(user);
 
 	}
+}
+
+void messageLu(char * file, char * id){
+	
+	FILE * f = fopen(file, "r+");	
+	Message msg;
+	int length, pos;
+	while(fscanf(f,"%s %s %s %s %s", msg.id, msg.date, msg.hour, msg.exp, msg.etat)!=EOF){
+		if(strcasecmp(msg.id, id)==0){
+			if(strcasecmp(msg.id, id)==0){
+				printf("%d\n",pos=ftell(f));
+				fseek(f, pos-2, SEEK_SET);
+				fprintf(f,"%s\n",LU);
+				printf("%s\n", msg.etat);
+			}
+		}
+	}
+	
 }
