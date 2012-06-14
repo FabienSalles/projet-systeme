@@ -33,7 +33,7 @@ void ajouterAmi(char * user){
 			printf("%s est maintenant votre ami(e) \n",nom);
 			
 			//Ajout dans historique
-			strcat(histoAjout,"Ajout de l'ami(e) ");
+			strcat(histoAjout,"Ajout_de_l'ami(e)_");
 			strcat(histoAjout,nom);
 			addAction(user,histoAjout);
 			
@@ -117,7 +117,7 @@ void supprAmi(char* user){
 			rename(fileAmiTmp,fileAmi);
 			
 			//Suppr dans historique
-			strcat(histoSuppr,"Sppression de l'ami(e) ");
+			strcat(histoSuppr,"Sppression_de_l'ami(e)_");
 			strcat(histoSuppr,nom);
 			addAction(user,histoSuppr);
 			printf("\n\n");

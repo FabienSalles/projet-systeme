@@ -58,3 +58,20 @@ void addActionWithDate(char * user, char * action, time_t timestamp){
 	//on remplace le fichier d'historique par le fichier temporaire
 	rename(fileTemp,fileHistorique);
 }
+
+void AfficherHisto(char * user){
+	
+	int status,f=fork();
+	if(f==0){
+		char fileHistorique[256]="";
+		strcat(fileHistorique, DIR_HISTORIQUES);
+		strcat(fileHistorique, user);
+		strcat(fileHistorique, ".txt");
+		execl("/bin/more","more",fileHistorique,NULL);
+	}
+	else{
+		wait(&status);
+		printf("\n\n");
+		menuconnect(user);
+	}
+}

@@ -9,3 +9,4 @@ Utilisateur inscription();
 Utilisateur auth();
 int userExist(char * nom, char * password);
 void errorUserExist();
+void modifMDP(char* user);

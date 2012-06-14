@@ -84,7 +84,7 @@ Utilisateur inscription(){
 		printf("\n");
 		
 		//ajout dans le fichier historique
-		addAction(user.nom,"création du compte");
+		addAction(user.nom,"création_du_compte");
 		return user;
 	}
 }
@@ -165,4 +165,58 @@ void errorUserExist(){
 			errorUserExist();
 
 	}
+}
+
+void modifMDP(char* user){
+	
+	FILE *fic;
+	FILE *ficTmp;
+	char fileTmp[256]="usersTmp.txt",
+		 login[256]="",
+		 pwd[128]="",
+		 mdp[128]="",
+		 tmp[128]="";
+	
+	printf("#####################################\n");
+	printf("####  Modification mot de passe  ####\n");
+	printf("#####################################\n");
+	while(1){
+		printf("Nouveau mot de passe : ");
+		scanf("%s", mdp);
+		printf("Nouveau mot de passe (confirmer) : ");
+		scanf("%s", tmp);
+		if(strcasecmp(mdp,tmp)==0)
+			break;
+		else {
+		 	printf("Les mots de passes sont différent!\n");
+			printf("Veuillez les resaisir!\n");
+		}
+	}
+	
+	fic=fopen(FILE_USERS,"r");
+	if (fic==NULL) {
+		printf("fichier inexistant\n");
+		exit(0);
+	}
+	ficTmp=fopen(fileTmp,"a");
+	if (ficTmp==NULL) {
+		printf("fichier inexistant\n");
+		exit(0);
+	}
+	
+	while(fscanf(fic,"%s %s",login,pwd)!=EOF){
+		if(strcasecmp(user, login) == 0){
+			//modifier le mdp
+			fprintf(ficTmp, "%s %s\n",login,mdp);
+		}
+		else
+			fprintf(ficTmp, "%s %s\n",login,pwd);
+	}
+	fclose(ficTmp);
+	fclose(fic);
+	rename(fileTmp,FILE_USERS);
+	printf("#####################################\n");
+	printf("Mot de passe change!");
+	printf("\n\n");
+	menuconnect(user);
 }

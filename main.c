@@ -53,7 +53,7 @@ void menuconnect(char * user){
 	printf("4 : Ajouter un ami\n");
 	printf("5 : Supprimer un ami\n");
 	printf("6 : Historique\n");
-	printf("7 : Modifier compte\n");
+	printf("7 : Modifier Mot de passe du compte\n");
 	printf("8 : Supprimer compte\n");
 	printf("9 : Deconnexion\n");
 	printf("0 : Quitter\n");
@@ -79,10 +79,10 @@ void menuconnect(char * user){
 			supprAmi(user);
 			break;
 		case 6:
-			addAction(user,"création du compte");
+			AfficherHisto(user);
 			break;
 		case 7:
-			menuconnect(user);
+			modifMDP(user);
 			break;
 		case 8:
 			menuconnect(user);

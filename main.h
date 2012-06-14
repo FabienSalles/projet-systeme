@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <sys/wait.h>
 
 #include "date.h"
 #include "utilisateur.h"
