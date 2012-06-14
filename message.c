@@ -32,36 +32,35 @@ void envoyerMessage(char* user){
 	     * ficExpTmp,
 	     * ficDest,
 	     * ficDestTmp;
-	
-	printf("#########################\n");
-	printf("####     Message     ####\n");
-	printf("#########################\n");
+	printf("##############################################################\n");
+	printf("#                           Message                          #\n");
+	printf("##############################################################\n\n");
 	printf("Destinataire : ");
 	scanf("%s",destinataire);
 
 	if(amiExist(user,destinataire)==0)
 		errorAmi(user,2);
 	else{
-		printf("#########################\n");
+		printf("##############################################################\n");
 		printf("Message : ");
 		clear();
 		fgets(message,256,stdin);
 		
-		printf("#########################\n");
+		printf("##############################################################\n");
 		printf("voulez vous y joindre un fichier?\n");
 		printf("1 oui\n");
 		printf("2 non\n");
-		printf("#########################\n");
+		printf("##############################################################\n");
 		scanf("%d",&choix);
 		if(choix==1){
 			printf("chemin du fichier: ");
 			scanf("%s",fichier);
 		}
-		printf("#########################\n");
+		printf("##############################################################\n");
 		printf("envoyer le message ? \n");
 		printf("1 : oui\n");
 		printf("2 : non(message perdu!)\n");
-		printf("#########################\n");
+		printf("##############################################################\n");
 		scanf("%d", &choix);
 		if(choix==2)
 			menuconnect(user);
@@ -159,12 +158,12 @@ void envoyerMessage(char* user){
 			fclose(fic);
 			
 			//ajout historique envoi d'un message
-			strcat(histoEnvoi,"Envoi d'un message à ");
+			strcat(histoEnvoi,"Envoi_d'un_message_à_");
 			strcat(histoEnvoi,destinataire);
 			addActionWithDate(user,histoEnvoi,rowtime);
 			
 			//ajout historique recu d'un message
-			strcat(histoRecu,"Reception d'un message de ");
+			strcat(histoRecu,"Reception_d'un_message_de_");
 			strcat(histoRecu,user);
 			addActionWithDate(destinataire,histoRecu,rowtime);
 
@@ -273,6 +272,7 @@ void boiteReception(char * user){
 	if(choix<1 || choix >nb)
 		errorChoixMsg(user);
 	else {
+		choix--;
 		if(fork()==0){
 
 			strcat(pathMsg, DIR_USERS);

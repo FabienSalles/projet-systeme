@@ -13,3 +13,5 @@ Utilisateur auth();
 int userExist(char * nom, char * password);
 void errorUserExist();
 void modifMDP(char* user);
+void deconnexion(char* user);
+void afficheMurAmi(char* user);

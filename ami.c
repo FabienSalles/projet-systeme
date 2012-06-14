@@ -8,10 +8,9 @@ void ajouterAmi(char * user){
 	char nom[128],
 	     fileAmi[256] = "",
 		 histoAjout[256]="";
-
-	printf("############################\n");
-	printf("####   Ajouter un ami   ####\n");
-	printf("############################\n");
+	printf("##############################################################\n");
+	printf("#                        Ajouter un ami                      #\n");
+	printf("##############################################################\n\n");
 	printf("Nom : ");
 	scanf("%s",nom);
 	printf("\n");
@@ -29,7 +28,7 @@ void ajouterAmi(char * user){
 			fic = fopen(fileAmi, "a");
 			fprintf(fic, "%s\n", nom);
 			fclose(fic);
-			printf("#########################\n");
+			printf("##############################################################\n");
 			printf("%s est maintenant votre ami(e) \n",nom);
 			
 			//Ajout dans historique
@@ -55,10 +54,9 @@ void supprAmi(char* user){
 	char nom[128] = "",
 		 histoSuppr[256]="";
 	int choix=0;
-	
-	printf("############################\n");
-	printf("####  Supprimer un ami  ####\n");
-	printf("############################\n");
+	printf("##############################################################\n");
+	printf("#                       Supprimer un ami                     #\n");
+	printf("##############################################################\n\n");
 	printf("Nom : ");
 	scanf("%s", nom);
 	printf("\n");
@@ -112,7 +110,7 @@ void supprAmi(char* user){
 			}
 			fclose(ficTmp);
 			fclose(fic);
-			printf("#########################\n");
+			printf("##############################################################\n");
 			printf("L'ami %s vient d'etre supprime\n",nom);
 			rename(fileAmiTmp,fileAmi);
 			
@@ -174,6 +172,7 @@ void errorAjoutAmi(char* user){
 /**
  *si from=1=suppr ami
  *si from=2=envoimessage
+ *si from=3=affiche mur ami
  */
 void errorAmi(char* user,int from){
 	int choix=0;
@@ -193,6 +192,9 @@ void errorAmi(char* user,int from){
 					break;
 				case 2:
 					envoyerMessage(user);
+					break;
+				case 3:
+					afficheMurAmi(user);
 					break;
 			}
 			break;

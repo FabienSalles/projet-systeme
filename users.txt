@@ -1,1 +1,6 @@
+<<<<<<< Updated upstream
+=======
+titi titi
+fabien fab
+>>>>>>> Stashed changes
 toto toto

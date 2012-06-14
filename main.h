@@ -19,6 +19,10 @@
 
 void menu();
 void menuconnect(char * user);
+void menuCompte(char * user);
+void menuAmi(char * user);
+void menuMessagerie(char * user);
+void menuMur(char * user);
 
 #include "util.c"
 #include "date.c"

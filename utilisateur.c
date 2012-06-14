@@ -14,9 +14,9 @@ Utilisateur inscription(){
 	FILE * fic;
 
 	// Saisie du login et mot de passe
-	printf("############################\n");
-	printf("####     S'inscrire     ####\n");
-	printf("############################\n");
+	printf("##############################################################\n");
+	printf("#                          S'inscrire                        #\n");
+	printf("##############################################################\n\n");
 	printf("Nom : ");
 	scanf("%s", user.nom);
 	while(1){
@@ -84,7 +84,7 @@ Utilisateur inscription(){
 		printf("\n");
 		
 		//ajout dans le fichier historique
-		addAction(user.nom,"création_du_compte");
+		addAction(user.nom,"Création_du_compte");
 		return user;
 	}
 }
@@ -92,10 +92,9 @@ Utilisateur inscription(){
 Utilisateur auth(){
 
 	Utilisateur user;
-	
-	printf("############################\n");
-	printf("####  authentification  ####\n");
-	printf("############################\n");
+	printf("##############################################################\n");
+	printf("#                       authentification                     #\n");
+	printf("##############################################################\n\n");
 	printf("Nom : ");
 	scanf("%s", user.nom);
 	printf("Mot de passe : ");
@@ -108,7 +107,8 @@ Utilisateur auth(){
 	else
 		printf("vous etes maintenant connecte!\n");
 	printf("\n");
-
+	//ajout dans le fichier historique
+	addAction(user.nom,"Connexion");
 	return user;	
 }
 
@@ -176,10 +176,9 @@ void modifMDP(char* user){
 		 pwd[128]="",
 		 mdp[128]="",
 		 tmp[128]="";
-	
-	printf("#####################################\n");
-	printf("####  Modification mot de passe  ####\n");
-	printf("#####################################\n");
+	printf("##############################################################\n");
+	printf("#                 Modification mot de passe                  #\n");
+	printf("##############################################################\n\n");
 	while(1){
 		printf("Nouveau mot de passe : ");
 		scanf("%s", mdp);
@@ -215,8 +214,99 @@ void modifMDP(char* user){
 	fclose(ficTmp);
 	fclose(fic);
 	rename(fileTmp,FILE_USERS);
-	printf("#####################################\n");
+	printf("##############################################################\n");
 	printf("Mot de passe change!");
 	printf("\n\n");
+	//ajout dans le fichier historique
+	addAction(user,"Modification_du_mot_de_passe");
 	menuconnect(user);
+}
+
+void afficheMur(char * user,char* userAffiche){
+	
+	FILE *fic;
+	FILE *fic2;
+	char ami[128],
+		 fileAmi[256] = "",
+		 file[256] = "",
+		 pathMsg[256] = "",
+		 destinataire[256] = "";
+	int i=0,c;
+	Message msg;
+	printf("##############################################################\n");
+	printf("#                        Liste des amis                      #\n");
+	printf("##############################################################\n\n");
+	strcat(fileAmi, DIR_USERS);
+	strcat(fileAmi, userAffiche);
+	strcat(fileAmi, "/amis.txt");
+	fic = fopen(fileAmi, "r");
+	while(fscanf(fic,"%s",ami)!=EOF){
+		printf("%s\n",ami);
+		i++;
+	}
+	printf("--------------------------------------------------------------\n");
+	printf("total: %d amis\n\n",i);
+	fclose(fic);
+	printf("##############################################################\n");
+	printf("#                    Liste des messages envoye               #\n");
+	printf("##############################################################\n\n");
+	i=0;
+	strcat(file, DIR_USERS);
+	strcat(file, userAffiche);
+	strcat(file, FILE_ENVOYES);
+	fic = fopen(file, "r");
+	while(fscanf(fic,"%s %s %s %s", msg.id, msg.date, msg.hour, msg.exp)!=EOF){
+
+		strcat(pathMsg, DIR_USERS);
+		strcat(pathMsg, userAffiche);
+		strcat(pathMsg, "/");
+		strcat(pathMsg, msg.id);
+		strcat(pathMsg, ".txt");
+		fic2 = fopen(pathMsg, "r");
+		fscanf(fic2,"%s",destinataire);
+		printf("Destinataire: %s\nMessage:",destinataire);
+		while((c=fgetc(fic2))!=EOF){
+			printf("%c",c);
+		}
+		printf("--------------------------------------------------------------\n");
+		i++;
+	}
+	printf("total: %d messages\n",i);
+	
+	
+	
+	printf("\n\n");
+	menuconnect(user);
+}
+void deconnexion(char* user){
+	//ajout dans le fichier historique
+	addAction(user,"Deconnexion");
+	int status;
+	if(fork()==0){
+		char fileHistorique[256]="";
+		strcat(fileHistorique, DIR_HISTORIQUES);
+		strcat(fileHistorique, user);
+		strcat(fileHistorique, ".txt");
+		execl("/bin/clear","clear",NULL);
+	}
+	else{
+		wait(&status);
+		printf("\n\n");
+		menu();
+	}
+}
+
+void afficheMurAmi(char* user){
+	
+	char ami[128];
+	printf("##############################################################\n");
+	printf("#                    Affichage du mur d'un ami               #\n");
+	printf("##############################################################\n\n");
+	printf("nom de l'ami: ");
+	scanf("%s",ami);
+	if(amiExist(user,ami)==0)
+		errorAmi(user,3);
+	else{
+		afficheMur(user,ami);
+	}
 }
