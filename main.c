@@ -45,11 +45,11 @@ void menuconnect(char * user){
 	int choix;
 
 	printf("############################\n");
-	printf("####        Menu        ####\n");
+	printf("#           Menu           #\n");
 	printf("############################\n");
 	printf("1 : Afficher mur\n");
 	printf("2 : Envoyer un message\n");
-	printf("3 : Boite de reception\n");
+	printf("3 : Boite de reception(%d)\n",nbMsgRecus(user, 1));
 	printf("4 : Ajouter un ami\n");
 	printf("5 : Supprimer un ami\n");
 	printf("6 : Historique\n");
@@ -70,7 +70,7 @@ void menuconnect(char * user){
 			envoyerMessage(user);
 			break;
 		case 3:
-			menuconnect(user);
+			boiteReception(user);
 			break;
 		case 4:
 			ajouterAmi(user);

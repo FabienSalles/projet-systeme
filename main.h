@@ -20,10 +20,7 @@
 void menu();
 void menuconnect(char * user);
 
-static char * FILE_USERS = "users.txt";
-static char * DIR_USERS = "users/";
-static char * DIR_HISTORIQUES = "historiques/";
-
+#include "util.c"
 #include "date.c"
 #include "utilisateur.c"
 #include "ami.c"

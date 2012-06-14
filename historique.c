@@ -61,8 +61,8 @@ void addActionWithDate(char * user, char * action, time_t timestamp){
 
 void AfficherHisto(char * user){
 	
-	int status,f=fork();
-	if(f==0){
+	int status;
+	if(fork()==0){
 		char fileHistorique[256]="";
 		strcat(fileHistorique, DIR_HISTORIQUES);
 		strcat(fileHistorique, user);
