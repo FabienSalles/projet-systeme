@@ -6,7 +6,8 @@ void ajouterAmi(char * user){
 	FILE * fic;
 
 	char nom[128],
-	     fileAmi[256] = "";
+	     fileAmi[256] = "",
+		 histoAjout[256]="";
 
 	printf("############################\n");
 	printf("####   Ajouter un ami   ####\n");
@@ -26,9 +27,17 @@ void ajouterAmi(char * user){
 			strcat(fileAmi, user);
 			strcat(fileAmi, "/amis.txt");
 			fic = fopen(fileAmi, "a");
-
 			fprintf(fic, "%s\n", nom);
 			fclose(fic);
+			printf("#########################\n");
+			printf("%s est maintenant votre ami(e) \n",nom);
+			
+			//Ajout dans historique
+			strcat(histoAjout,"Ajout de l'ami(e) ");
+			strcat(histoAjout,nom);
+			addAction(user,histoAjout);
+			
+			printf("\n\n");
 			menuconnect(user);
 		}
 	}
@@ -37,11 +46,14 @@ void ajouterAmi(char * user){
 		printf("Veuillez resaisir le nom d'utilisateur!\n\n");
 		ajouterAmi(user);
 	}
+	
+
 }
 
 void supprAmi(char* user){
 	
-	char nom[128] = "";
+	char nom[128] = "",
+		 histoSuppr[256]="";
 	int choix=0;
 	
 	printf("############################\n");
@@ -100,8 +112,15 @@ void supprAmi(char* user){
 			}
 			fclose(ficTmp);
 			fclose(fic);
-			printf("l'ami %s vient d'etre supprime\n",nom);
+			printf("#########################\n");
+			printf("L'ami %s vient d'etre supprime\n",nom);
 			rename(fileAmiTmp,fileAmi);
+			
+			//Suppr dans historique
+			strcat(histoSuppr,"Sppression de l'ami(e) ");
+			strcat(histoSuppr,nom);
+			addAction(user,histoSuppr);
+			printf("\n\n");
 			menuconnect(user);
 		}
 	}

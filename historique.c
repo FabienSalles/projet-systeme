@@ -21,8 +21,6 @@ void addActionWithDate(char * user, char * action, time_t timestamp){
 
 	FILE * fic,
 	     * temp;
-
-	int len;
 	
 	// Génération de la date
 	getDate(timestamp,date);

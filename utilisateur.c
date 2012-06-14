@@ -83,6 +83,8 @@ Utilisateur inscription(){
 		printf("vous etes maintenant connecte!\n");
 		printf("\n");
 		
+		//ajout dans le fichier historique
+		addAction(user.nom,"création du compte");
 		return user;
 	}
 }

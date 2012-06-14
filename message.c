@@ -12,6 +12,7 @@ void envoyerMessage(char* user){
 	char copyTimestamp[128],copyDate[128],copyHour[128],destinataire[128];
 	char message[256]="",fichier[256] = "";
 	char idMessage[128];
+	char histoEnvoi[256]="",histoRecu[256] = "";
 	int choix=0;
 	FILE * fic;
 	FILE * ficTmp;
@@ -153,11 +154,20 @@ void envoyerMessage(char* user){
 			fprintf(fic,"%s\n",message);
 			fprintf(fic,"%s\n",fichier);
 			fclose(fic);
-			
-			
-			
 			printf("#########################\n");
 			printf("Message envoye! \n");
+			
+			//ajout historique envoi d'un message
+			strcat(histoEnvoi,"Envoi d'un message à ");
+			strcat(histoEnvoi,destinataire);
+			addActionWithDate(user,histoEnvoi,rowtime);
+			
+			//ajout historique recu d'un message
+			strcat(histoRecu,"Reception d'un message de ");
+			strcat(histoRecu,user);
+			addActionWithDate(destinataire,histoRecu,rowtime);
+			
+			printf("\n\n");
 			menuconnect(user);
 		}
 	}
