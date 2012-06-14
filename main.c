@@ -18,7 +18,7 @@ void menu(){
 	printf("1 : S'inscrire\n");
 	printf("2 : S'authentifier\n");
 	printf("3 : Quitter\n");
-	printf("##############################################################\n");
+	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
 	scanf("%d", &choix);
 	
@@ -52,7 +52,7 @@ void menuconnect(char * user){
 	printf("4 : Gestion du compte\n");
 	printf("9 : Deconnexion\n");
 	printf("0 : Quitter\n");
-	printf("##############################################################\n");
+	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
 	scanf("%d", &choix);
 	printf("\n\n");
@@ -92,7 +92,7 @@ void menuMur(char * user){
 	printf("1 : Afficher mon mur\n");
 	printf("2 : Afficher le mur d'un ami\n");
 	printf("9 : Retour Menu\n");
-	printf("##############################################################\n");
+	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
 	scanf("%d", &choix);
 	printf("\n\n");
@@ -123,7 +123,7 @@ void menuMessagerie(char * user){
 	printf("1 : Boite de reception(%d)\n",nbMsgRecus(user, 1));
 	printf("2 : Envoyer un message\n");
 	printf("9 : Retour Menu\n");
-	printf("##############################################################\n");
+	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
 	scanf("%d", &choix);
 	printf("\n\n");
@@ -154,7 +154,7 @@ void menuAmi(char * user){
 	printf("1 : Ajouter un ami\n");
 	printf("2 : Supprimer un ami\n");
 	printf("9 : Retour Menu\n");
-	printf("##############################################################\n");
+	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
 	scanf("%d", &choix);
 	printf("\n\n");
@@ -185,7 +185,7 @@ void menuCompte(char * user){
 	printf("1 : Modifier Mot de passe du compte\n");
 	printf("2 : Supprimer compte\n");
 	printf("9 : Retour Menu\n");
-	printf("##############################################################\n");
+	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
 	scanf("%d", &choix);
 	printf("\n\n");

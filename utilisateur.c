@@ -19,11 +19,14 @@ Utilisateur inscription(){
 	printf("##############################################################\n\n");
 	printf("Nom : ");
 	scanf("%s", user.nom);
+	clear();
 	while(1){
 		printf("Mot de passe : ");
 		scanf("%s", user.password);
+		clear();
 		printf("Mot de passe (confirmer) : ");
 		scanf("%s", saisie);
+		clear();
 		if(strcasecmp(user.password, saisie)==0)
 			break;
 		else {
@@ -97,8 +100,10 @@ Utilisateur auth(){
 	printf("##############################################################\n\n");
 	printf("Nom : ");
 	scanf("%s", user.nom);
+	clear();
 	printf("Mot de passe : ");
 	scanf("%s", user.password);
+	clear();
 
 	printf("\n");	
 	//vérification login et mdp
@@ -214,7 +219,7 @@ void modifMDP(char* user){
 	fclose(ficTmp);
 	fclose(fic);
 	rename(fileTmp,FILE_USERS);
-	printf("##############################################################\n");
+	printf("\n-------------------------------------------------------------\n");
 	printf("Mot de passe change!");
 	printf("\n\n");
 	//ajout dans le fichier historique
@@ -278,6 +283,7 @@ void afficheMur(char * user,char* userAffiche){
 	printf("\n\n");
 	menuconnect(user);
 }
+
 void deconnexion(char* user){
 	//ajout dans le fichier historique
 	addAction(user,"Deconnexion");

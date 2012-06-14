@@ -4,10 +4,7 @@
 
 void envoyerMessage(char* user){
 	
-	char date[11],
-	     hour[11],
-	     etat[4],
-	     dirUser[256] = "",
+	char dirUser[256] = "",
 	     dirMsgDest[256] = "",
 	     dirDest[256] = "",
 	     fileMsgEnvoye[256] = "",
@@ -15,61 +12,65 @@ void envoyerMessage(char* user){
 	     fileMsgRecus[256]="",
 	     fileExpTmp[256] = "",
 	     fileDestTmp[256]="",
-	     timestamp[128],
-	     destinataire[128],
-	     message[256]="",
 	     fichier[256] = "",
-	     dest[128],
-	     exp[128],
-	     idMessage[128],
 	     histoEnvoi[256] = "",
-	     histoRecu[256] = "";
-
-	int choix=0;
+	     histoRecu[256] = "",
+	     choix;
 
 	FILE * fic,
 	     * ficExp,
 	     * ficExpTmp,
 	     * ficDest,
 	     * ficDestTmp;
+	
+	Message msg,
+		temp;
+
 	printf("##############################################################\n");
 	printf("#                           Message                          #\n");
 	printf("##############################################################\n\n");
-	printf("Destinataire : ");
-	scanf("%s",destinataire);
 
-	if(amiExist(user,destinataire)==0)
+	printf("Destinataire : ");
+	scanf("%s",msg.dest);
+
+	if(amiExist(user,msg.dest)==0)
 		errorAmi(user,2);
 	else{
-		printf("##############################################################\n");
+		printf("\n-------------------------------------------------------------\n");
 		printf("Message : ");
 		clear();
-		fgets(message,256,stdin);
+		fgets(msg.message,256,stdin);
 		
-		printf("##############################################################\n");
+		printf("\n-------------------------------------------------------------\n");
 		printf("voulez vous y joindre un fichier?\n");
 		printf("1 oui\n");
 		printf("2 non\n");
-		printf("##############################################################\n");
-		scanf("%d",&choix);
-		if(choix==1){
+
+		printf("\n-------------------------------------------------------------\n");
+		scanf("%c",&choix);
+		clear();
+
+		if(choix=='1'){
 			printf("chemin du fichier: ");
 			scanf("%s",fichier);
 		}
-		printf("##############################################################\n");
+		printf("\n-------------------------------------------------------------\n");
 		printf("envoyer le message ? \n");
 		printf("1 : oui\n");
 		printf("2 : non(message perdu!)\n");
-		printf("##############################################################\n");
-		scanf("%d", &choix);
-		if(choix==2)
+		printf("\n-------------------------------------------------------------\n");
+		printf("Choix : ");
+		scanf("%c", &choix);
+		clear();
+		if(choix=='2')
 			menuconnect(user);
 		else{
 			// ---- Ajout du nouveau messages dans les fichiers envoyes.txt et recus.txt de l'expéditeur et du destinataire
-			time_t rowtime=getTimeStamp();
+			
+			msg.timestamp=getTimeStamp();
 
-			getDate(rowtime,date);
-			getHour(rowtime,hour);
+			getDate(msg.timestamp,msg.date);
+			getHour(msg.timestamp,msg.hour);
 
 			//chemin du dossier de l'expéditeur
 			strcat(dirUser, DIR_USERS);
@@ -90,11 +91,11 @@ void envoyerMessage(char* user){
 			}
 			
 			//ecriture du message
-			fprintf(ficExpTmp, "%ti %s %s %s\n", rowtime ,date ,hour ,destinataire );
+			fprintf(ficExpTmp, "%ti %s %s %s\n", msg.timestamp ,msg.date ,msg.hour ,msg.dest );
 			
 			//chemin vers le destinataire
 			strcat(dirDest,DIR_USERS);
-			strcat(dirDest,destinataire);
+			strcat(dirDest,msg.dest);
 			strcat(fileMsgRecus,dirDest);
 			strcat(fileMsgRecus, "/recus.txt");
 
@@ -106,14 +107,14 @@ void envoyerMessage(char* user){
 			ficDestTmp = fopen(fileDestTmp, "a");
 			
 			//ecriture du message
-			fprintf(ficDestTmp, "%ti %s %s %s %s\n", rowtime ,date ,hour , user, NL);
+			fprintf(ficDestTmp, "%ti %s %s %s %s\n", msg.timestamp ,msg.date ,msg.hour , user, NL);
 
 			
 			//ouverture de envoyes.txt et transfert de son contenu dans le fichier temporaire
 			ficExp = fopen(fileMsgEnvoye, "r");
 			
-			while(fscanf( ficExp,"%s %s %s %s",timestamp ,date ,hour, dest)!=EOF){
-				fprintf(ficExpTmp, "%s %s %s %s\n", timestamp ,date ,hour, dest);
+			while(fscanf( ficExp,"%s %s %s %s",temp.id ,temp.date ,temp.hour, temp.dest)!=EOF){
+				fprintf(ficExpTmp, "%s %s %s %s\n",temp.id ,temp.date ,temp.hour, temp.dest);
 			}
 			fclose(ficExpTmp);
 			fclose(ficExp);
@@ -122,8 +123,8 @@ void envoyerMessage(char* user){
 			//ouverture recus.txt
 			ficDest = fopen(fileMsgRecus, "r");
 			
-			while(fscanf(ficDest,"%s %s %s %s %s",timestamp,date,hour, exp, etat)!=EOF){
-				fprintf(ficDestTmp, "%s %s %s %s %s\n", timestamp, date, hour, exp, etat);
+			while(fscanf(ficDest,"%s %s %s %s %s",temp.id ,temp.date ,temp.hour, temp.exp, temp.etat)!=EOF){
+				fprintf(ficDestTmp, "%s %s %s %s %s\n", temp.id ,temp.date ,temp.hour, temp.exp, temp.etat);
 			}
 			fclose(ficDestTmp);
 			fclose(ficDest);
@@ -134,38 +135,46 @@ void envoyerMessage(char* user){
 			//création du fichier message (idMessage.txt)
 			fic = fopen(fileMsgEnvoye, "r");
 
-			fscanf(fic,"%s",idMessage);
+			fscanf(fic,"%s",msg.id);
+
 			fclose(fic);
+
 			strcat(fileMsg, dirUser);
 			strcat(fileMsg, "/");
-			strcat(fileMsg, idMessage);
+			strcat(fileMsg, msg.id);
 			strcat(fileMsg, ".txt");
+
 			fic = fopen(fileMsg, "w");
-			fprintf(fic,"%s\n",destinataire);
-			fprintf(fic,"%s\n",message);
+
+			fprintf(fic,"%s\n",msg.dest);
+			fprintf(fic,"%s\n",msg.message);
 			fprintf(fic,"%s\n",fichier);
+
 			fclose(fic);
 			
 			//creation du fichier massage destinataire
 			strcat(dirMsgDest,dirDest);
 			strcat(dirMsgDest,"/");
-			strcat(dirMsgDest,idMessage);
+			strcat(dirMsgDest,msg.id);
 			strcat(dirMsgDest,".txt");
+
 			fic = fopen(dirMsgDest, "w");
+
 			fprintf(fic,"%s\n",user);
-			fprintf(fic,"%s\n",message);
+			fprintf(fic,"%s\n",msg.message);
 			fprintf(fic,"%s\n",fichier);
+
 			fclose(fic);
 			
 			//ajout historique envoi d'un message
 			strcat(histoEnvoi,"Envoi_d'un_message_à_");
-			strcat(histoEnvoi,destinataire);
-			addActionWithDate(user,histoEnvoi,rowtime);
+			strcat(histoEnvoi,msg.dest);
+			addActionWithDate(user,histoEnvoi,msg.timestamp);
 			
 			//ajout historique recu d'un message
 			strcat(histoRecu,"Reception_d'un_message_de_");
 			strcat(histoRecu,user);
-			addActionWithDate(destinataire,histoRecu,rowtime);
+			addActionWithDate(msg.dest,histoRecu,msg.timestamp);
 
 			printf("\n\n");
 			printf("#########################\n");
@@ -293,19 +302,20 @@ void boiteReception(char * user){
 }
 
 void errorChoixMsg(char * user){
-	int choix;
+	char choix;
 
 	printf("Le numéro que vous avez insérer n'existe pas!\n\n");
 	printf("1 : Try again\n");
 	printf("2 : Retour Menu\n");
-	scanf("%d", &choix);
+	printf("Choix : ");
+	scanf("%c", &choix);
 	clear();
 
 	switch(choix){
-		case 1:
+		case '1':
 			boiteReception(user);
 			break;
-		case 2:
+		case '2':
 			menuconnect(user);
 			break;
 		default:

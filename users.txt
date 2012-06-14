@@ -1,6 +1,12 @@
-<<<<<<< Updated upstream
-=======
+<<<<<<< Updated
+upstream =======
 titi titi
 fabien fab
->>>>>>> Stashed changes
-toto toto
+>>>>>>> Stashed
+changes toto
+toto fabien
+oliveur tristan
+tritri paul
+polo kiki
+kiki huhu
+huhu tutu
