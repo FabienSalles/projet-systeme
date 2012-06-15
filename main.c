@@ -17,7 +17,7 @@ void menu(){
 	printf("##############################################################\n\n");
 	printf("1 : S'inscrire\n");
 	printf("2 : S'authentifier\n");
-	printf("3 : Quitter\n");
+	printf("0 : Quitter\n");
 	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
 	scanf("%d", &choix);
@@ -30,7 +30,7 @@ void menu(){
 		case 2:
 			user = auth();
 			break;
-		case 3:
+		case 0:
 			exit(EXIT_SUCCESS);
 		default:
 			printf("\nUne erreur est survenue!\n");
@@ -195,7 +195,7 @@ void menuCompte(char * user){
 			modifMDP(user);
 			break;
 		case 2:
-			menuCompte(user);
+			supprCompte(user);
 			break;
 		case 9:
 			menuconnect(user);

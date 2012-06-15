@@ -78,21 +78,37 @@ void supprAmi(char* user){
 			menuconnect(user);
 		}
 		else{
-			char dirUser[256] = "";
+			fonctionSupprAmi(user,nom);
+			
+			printf("\n-------------------------------------------------------------\n");
+			printf("L'ami %s vient d'etre supprime\n",nom);
+			
+			
+			//Suppr dans historique
+			strcat(histoSuppr,"Sppression_de_l'ami(e)_");
+			strcat(histoSuppr,nom);
+			addAction(user,histoSuppr);
+			printf("\n\n");
+			menuconnect(user);
+		}
+	}
+}
+
+void fonctionSupprAmi(char* user,char* nom){
+			
 			char fileAmi[256] = "";
 			char fileAmiTmp[256] = "";
 			char ami[128]= "";
 			FILE * fic;
 			FILE * ficTmp;
 			
-			strcat(dirUser, DIR_USERS);
-			strcat(dirUser, user);
-			strcat(fileAmi, dirUser);
+			strcat(fileAmi, DIR_USERS);
+			strcat(fileAmi, user);
+			strcat(fileAmiTmp, fileAmi);
 			strcat(fileAmi, "/amis.txt");
-			strcat(fileAmiTmp, dirUser);
+			strcat(fileAmiTmp, "/amisTmp.txt");
 			
 			//creation du fichier temporaire
-			strcat(fileAmiTmp, "/amisTmp.txt");
 			ficTmp = fopen(fileAmiTmp, "w");
 			fclose(ficTmp);
 			
@@ -116,18 +132,8 @@ void supprAmi(char* user){
 			}
 			fclose(ficTmp);
 			fclose(fic);
-			printf("\n-------------------------------------------------------------\n");
-			printf("L'ami %s vient d'etre supprime\n",nom);
 			rename(fileAmiTmp,fileAmi);
-			
-			//Suppr dans historique
-			strcat(histoSuppr,"Sppression_de_l'ami(e)_");
-			strcat(histoSuppr,nom);
-			addAction(user,histoSuppr);
-			printf("\n\n");
-			menuconnect(user);
-		}
-	}
+	
 }
 
 int amiExist(char* user,char nom[128]){

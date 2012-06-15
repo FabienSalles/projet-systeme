@@ -15,3 +15,4 @@ void errorUserExist();
 void modifMDP(char* user);
 void deconnexion(char* user);
 void afficheMurAmi(char* user);
+void supprCompte(char* user);

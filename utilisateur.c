@@ -316,3 +316,76 @@ void afficheMurAmi(char* user){
 		afficheMur(user,ami);
 	}
 }
+
+void supprCompte(char* user){
+	
+	
+	
+	FILE *fic;
+	FILE *fic2;
+	
+	int status;
+	char choix;
+	
+	char fileUserTmp[256]="usersTmp.txt";
+	Utilisateur utilisateur;
+	printf("##############################################################\n");
+	printf("#                   Suppression du compte                    #\n");
+	printf("##############################################################\n\n");	 
+	printf("etes vous sur de vouloir supprimer votre compte ? \n");
+	printf("1 : oui\n");
+	printf("2 : non(retour au menu)\n");
+	printf("\n-------------------------------------------------------------\n");
+	printf("Choix : ");
+	scanf("%c", &choix);
+	clear();
+	if(choix=='2'){
+		printf("\n\n");
+		menuconnect(user);
+	}
+	else{
+		//suppr profil
+		if(fork()==0){
+			char dirUser[256]="";
+			strcat(dirUser, DIR_USERS);
+			strcat(dirUser, user);
+			execl("/bin/rm","rm",dirUser,"-rf",NULL);
+		}
+		else{
+			wait(&status);
+		}
+		
+		//suppr historique
+		if(fork()==0){
+			char fileHistorique[256]="";
+			strcat(fileHistorique, DIR_HISTORIQUES);
+			strcat(fileHistorique, user);
+			strcat(fileHistorique, ".txt");
+			execl("/bin/rm","rm",fileHistorique,"-rf",NULL);
+		}
+		else{
+			wait(&status);
+		}
+		
+		fic = fopen(FILE_USERS, "r" );
+		fic2=fopen(fileUserTmp,"w");
+		while(fscanf(fic,"%s %s",utilisateur.nom,utilisateur.password)!=EOF){
+			if(strcasecmp(user, utilisateur.nom) == 0){
+			//ne rien faire
+			}
+			else{
+				//suppr du user dans la liste d'amis de tous les user
+				fonctionSupprAmi(utilisateur.nom,user);
+				
+				fprintf(fic2, "%s %s\n", utilisateur.nom,utilisateur.password);
+			}
+		}
+		fclose(fic2);
+		fclose(fic);
+		rename(fileUserTmp,FILE_USERS);
+		printf("Votre compte a bien ete supprime!");
+		printf("\n\n");
+		menu();
+	}
+	
+}
