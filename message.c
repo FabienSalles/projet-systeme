@@ -213,9 +213,8 @@ int nbMsgEnvoyes(char * user){
 
 	f = fopen(file, "r");
 
-	while(fscanf(f,"%s %s %s %s",msg.id,msg.date,msg.hour, msg.dest)!=EOF){
+	while(fscanf(f,"%s %s %s %s", msg.id, msg.date, msg.hour, msg.dest)!=EOF)
 		nb++;						
-	}
 
 	fclose(f);
 
