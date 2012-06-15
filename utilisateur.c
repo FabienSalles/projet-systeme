@@ -150,18 +150,19 @@ int userExist(char * nom, char * password){
 }
 
 void errorUserExist(){
-	int choix=0;
+	char choix;
 	
 	printf("Le mot de passe et/ou login est incorecte!\n\n");
 	printf("1 : Try again\n");
 	printf("2 : Retour Menu\n");
-	scanf("%d", &choix);
-			
+	scanf("%c", &choix);
+	clear();
+	
 	switch(choix){
-		case 1:
+		case '1':
 			auth();
 			break;
-		case 2:
+		case '2':
 			menu();
 			break;
 		default:
@@ -187,8 +188,10 @@ void modifMDP(char* user){
 	while(1){
 		printf("Nouveau mot de passe : ");
 		scanf("%s", mdp);
+		clear();
 		printf("Nouveau mot de passe (confirmer) : ");
 		scanf("%s", tmp);
+		clear();
 		if(strcasecmp(mdp,tmp)==0)
 			break;
 		else {
@@ -310,6 +313,7 @@ void afficheMurAmi(char* user){
 	printf("##############################################################\n\n");
 	printf("nom de l'ami: ");
 	scanf("%s",ami);
+	clear();
 	if(amiExist(user,ami)==0)
 		errorAmi(user,3);
 	else{

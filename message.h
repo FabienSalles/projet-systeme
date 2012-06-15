@@ -10,7 +10,7 @@ typedef struct message{
 	     date[11],
 	     hour[11],
 	     etat[2],
-	     message[256],
+	     message[1000],
 	     pathMsg[256];
 
 } Message;

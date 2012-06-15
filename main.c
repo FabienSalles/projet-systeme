@@ -10,7 +10,8 @@ int main(int argc, char * argv[]){
 }
 
 void menu(){
-	int choix;
+
+	char choix;
 	Utilisateur user;
 	printf("##############################################################\n");
 	printf("#                            Accueil                         #\n");
@@ -20,17 +21,17 @@ void menu(){
 	printf("0 : Quitter\n");
 	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
-	scanf("%d", &choix);
-	
+	scanf("%c", &choix);
+	clear();
 	printf("\n\n");
 	switch(choix){
-		case 1:
+		case '1':
 			user = inscription();
 			break;
-		case 2:
+		case '2':
 			user = auth();
 			break;
-		case 0:
+		case '0':
 			exit(EXIT_SUCCESS);
 		default:
 			printf("\nUne erreur est survenue!\n");
@@ -42,38 +43,39 @@ void menu(){
 
 void menuconnect(char * user){
 	
-	int choix;
+	char choix;
 	printf("##############################################################\n");
 	printf("#                             Menu                           #\n");
 	printf("##############################################################\n\n");
 	printf("1 : Affichage des mur\n");
-	printf("2 : Messagerie\n");
-	printf("3 : Gestion des amis\n");
+	printf("2 : Gestion des amis\n");
+	printf("3 : Messagerie\n");
 	printf("4 : Gestion du compte\n");
 	printf("9 : Deconnexion\n");
 	printf("0 : Quitter\n");
 	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
-	scanf("%d", &choix);
+	scanf("%c", &choix);
+	clear();
 	printf("\n\n");
 	switch(choix){
 
-		case 1:
+		case '1':
 			menuMur(user);
 			break;
-		case 2:
-			menuMessagerie(user);
-			break;
-		case 3:
+		case '2':
 			menuAmi(user);
 			break;
-		case 4:
+		case '3':
+			menuMessagerie(user);
+			break;
+		case '4':
 			menuCompte(user);
 			break;
-		case 9:
+		case '9':
 			deconnexion(user);
 			break;
-		case 0:
+		case '0':
 			exit(EXIT_SUCCESS);
 		default:
 			printf("\nUne erreur est survenue!\n");
@@ -84,7 +86,7 @@ void menuconnect(char * user){
 
 void menuMur(char * user){
 	
-	int choix;
+	char choix;
 
 	printf("##############################################################\n");
 	printf("#                       Affichage des mur                    #\n");
@@ -94,17 +96,18 @@ void menuMur(char * user){
 	printf("9 : Retour Menu\n");
 	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
-	scanf("%d", &choix);
+	scanf("%c", &choix);
+	clear();
 	printf("\n\n");
 	switch(choix){
 
-		case 1:
+		case '1':
 			afficheMur(user,user);
 			break;
-		case 2:
+		case '2':
 			afficheMurAmi(user);
 			break;
-		case 9:
+		case '9':
 			menuconnect(user);
 			break;	
 		default:
@@ -115,27 +118,27 @@ void menuMur(char * user){
 }
 void menuMessagerie(char * user){
 	
-	int choix;
+	char choix;
 
 	printf("##############################################################\n");
 	printf("#                          Messagerie                        #\n");
 	printf("##############################################################\n\n");
-	printf("1 : Boite de reception(%d)\n",nbMsgRecus(user, 1));
-	printf("2 : Envoyer un message\n");
+	printf("1 : Envoyer un message\n");
+	printf("2 : Boite de reception(%d)\n",nbMsgRecus(user, 1));
 	printf("9 : Retour Menu\n");
 	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
-	scanf("%d", &choix);
+	scanf("%c", &choix);
+	clear();
 	printf("\n\n");
 	switch(choix){
-
-		case 1:
-			boiteReception(user);
-			break;
-		case 2:
+		case '1':
 			envoyerMessage(user);
 			break;
-		case 9:
+		case '2':
+			boiteReception(user);
+			break;
+		case '9':
 			menuconnect(user);
 			break;	
 		default:
@@ -146,7 +149,7 @@ void menuMessagerie(char * user){
 }
 void menuAmi(char * user){
 	
-	int choix;
+	char choix;
 
 	printf("##############################################################\n");
 	printf("#                       Gestion des amis                     #\n");
@@ -156,17 +159,18 @@ void menuAmi(char * user){
 	printf("9 : Retour Menu\n");
 	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
-	scanf("%d", &choix);
+	scanf("%c", &choix);
+	clear();
 	printf("\n\n");
 	switch(choix){
 
-		case 1:
+		case '1':
 			ajouterAmi(user);
 			break;
-		case 2:
+		case '2':
 			supprAmi(user);
 			break;
-		case 9:
+		case '9':
 			menuconnect(user);
 			break;	
 		default:
@@ -177,27 +181,32 @@ void menuAmi(char * user){
 }
 void menuCompte(char * user){
 	
-	int choix;
+	char choix;
 
 	printf("##############################################################\n");
 	printf("#                       Gestion du compte                    #\n");
 	printf("##############################################################\n\n");
 	printf("1 : Modifier Mot de passe du compte\n");
 	printf("2 : Supprimer compte\n");
+	printf("3 : Historique du compte\n");
 	printf("9 : Retour Menu\n");
 	printf("\n-------------------------------------------------------------\n");
 	printf("Choix : ");
-	scanf("%d", &choix);
+	scanf("%c", &choix);
+	clear();
 	printf("\n\n");
 	switch(choix){
 
-		case 1:
+		case '1':
 			modifMDP(user);
 			break;
-		case 2:
+		case '2':
 			supprCompte(user);
 			break;
-		case 9:
+		case '3':
+			AfficherHisto(user);
+			break;
+		case '9':
 			menuconnect(user);
 			break;	
 		default:
